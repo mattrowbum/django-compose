@@ -1,0 +1,32 @@
+services:
+
+  db:
+    image: postgis/postgis:15-3.3
+    networks:
+      - backend
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  web:
+    image: django:4.3.3
+    build: .
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+    volumes:
+      - .:/src
+    depends_on:
+      - db
+    tty: true
+
+volumes:
+  pgdata:
+
+networks:
+  backend:
+    driver: bridge

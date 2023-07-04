@@ -1,0 +1,12 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+
+# Django stuff:
+media/
+
+# Mac files
+.DS_Store
+
+# Custom
+.env
